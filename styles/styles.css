@@ -1,34 +1,32 @@
-
+/* Layout only — no cosmetic styling */
 
 * {
-    outline: 2px solid red;
     box-sizing: border-box;
+    outline: 1px solid red;
+
 }
 
+/* Nav: horizontal row of links that wraps on narrow screens */
 .navigation-bar {
     list-style-type: none;
-    outline: 4px solid black;
-    padding: 10px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
-    display: flex;
 }
 
-.navigation-button {
-    outline: 2px solid blue;
-    margin: 30px;
-    background-color: blueviolet;
-    flex: auto;
+/* Centered content column */
+main {
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
-.box {
-    outline: 2px solid pink;
-}
+/* Hero is a plain full-width block above the grid (default block behavior) */
 
-.container {
-    display: flex;
-}
-
-.box {
-    flex: auto;
-    padding: 30px;
+/* Card grid: as many columns as fit, auto-stacks to one column on phones */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
 }
