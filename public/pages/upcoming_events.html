@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>NYU Math Society</title>
+        <link rel="stylesheet" href="../styles/styles.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+
+        <header>
+            Get Involved!
+        </header>
+
+        <nav>
+            <details class="nav-toggle">
+                <summary>Menu</summary>
+                <ul class="navigation-bar">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="about.html">About Us</a>
+                    </li>
+                    <li>
+                        <a href="upcoming_events.html">Upcoming Events</a>
+                    </li>
+                    <li>
+                        <a href="past_events.html">Past Events</a>
+                    </li>
+                    <li>
+                        <a href="contacts.html">Get in Touch</a>
+                    </li>
+                </ul>
+            </details>
+        </nav>
+        <script src="../scripts/nav.js"></script>
+
+        <main>
+            <!-- Two embeds, one calendar. Google's month grid has its own ~600px
+                 internal minimum and clips below that, so phones get the agenda
+                 view instead. The stylesheet shows exactly one of these. -->
+            <div>
+                <iframe class="calendar calendar-agenda" title="NYU Math Society events" src="https://calendar.google.com/calendar/embed?src=c_114fff262aa318f5448bb9c9926e020413bd63eae984efe09fb5f063cd5077b6%40group.calendar.google.com&ctz=America%2FNew_York&mode=AGENDA" style="border: 0" frameborder="0"></iframe>
+                <iframe class="calendar calendar-month" title="NYU Math Society calendar" src="https://calendar.google.com/calendar/embed?src=c_114fff262aa318f5448bb9c9926e020413bd63eae984efe09fb5f063cd5077b6%40group.calendar.google.com&ctz=America%2FNew_York&mode=MONTH" style="border: 0" frameborder="0" scrolling="no"></iframe>
+            </div>
+        </main>
+
+    </body> 
+</html>

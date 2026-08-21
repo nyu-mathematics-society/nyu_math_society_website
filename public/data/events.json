@@ -1,0 +1,14 @@
+[
+    {
+        "title": "Integration Bee",
+        "date": "2026-04-15",
+        "description": "Our annual head-to-head integration contest. Twenty competitors, one whiteboard, and a final round that came down to a contour integral.",
+        "images": ["avatar.png", "avatar.png", "avatar.png"]
+    },
+    {
+        "title": "Grad School Panel",
+        "date": "2026-03-02",
+        "description": "Five PhD students from the Courant Institute answered questions about applications, funding, and what research actually looks like day to day.",
+        "images": ["avatar.png"]
+    }
+]

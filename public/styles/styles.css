@@ -1,0 +1,197 @@
+/* Layout only — no cosmetic styling.
+   Written mobile-first: the rules below describe the phone layout, and the one
+   @media block at the bottom widens things out from 700px up. */
+
+* {
+    box-sizing: border-box;
+}
+
+/* Stop iOS inflating text in portrait->landscape */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+/* Centered content column. header and nav sit outside <main>, so they need the
+   same treatment to line up with it — and the padding is what keeps text off
+   the screen edge on a phone. */
+header,
+nav,
+main {
+    max-width: 1000px;
+    margin-inline: auto;
+    padding-inline: 1rem;
+}
+
+/* Nothing should ever be able to push the page wider than the screen */
+img {
+    max-width: 100%;
+}
+
+/* ---------- Navigation ---------- */
+/* A <details> disclosure: collapsed behind a ☰ button on phones, opened out
+   into a plain row on desktop (see the media query). scripts/nav.js keeps the
+   open state in sync with the same 700px breakpoint. */
+.nav-toggle > summary {
+    display: block;
+    min-height: 44px;      /* comfortable tap target */
+    padding: 12px 0;
+    cursor: pointer;
+    list-style: none;      /* hide the default disclosure triangle */
+}
+
+.nav-toggle > summary::-webkit-details-marker {
+    display: none;
+}
+
+.nav-toggle > summary::before {
+    content: "\2630\00a0";
+}
+
+/* Stacked full-width rows while the menu is open on a phone */
+.navigation-bar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.navigation-bar a {
+    display: block;
+    min-height: 44px;
+    padding: 12px 0;
+}
+
+/* ---------- Card grid ---------- */
+/* As many columns as fit, auto-stacks to one column on phones. The min() keeps
+   a 220px column from overflowing a container narrower than 220px. */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+    gap: 20px;
+}
+
+/* Team avatars: fixed square size, cropped to fit without distortion */
+.card img {
+    width: 120px;
+    height: 120px;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+/* ---------- Calendar embed ---------- */
+/* Google's month grid has its own ~600px internal minimum and just clips below
+   that, so phones get the agenda view (a scrollable list) instead. Only one of
+   the two iframes is ever visible. */
+.calendar {
+    display: block;
+    width: 100%;
+    max-width: 800px;
+}
+
+.calendar-agenda {
+    min-height: 60vh;
+}
+
+.calendar-month {
+    display: none;
+}
+
+/* ---------- Blog-style posts (past events) ---------- */
+.post {
+    margin-bottom: 60px;
+}
+
+/* <time> is inline by default; give the date its own line above the photos */
+.post-date {
+    display: block;
+    margin-bottom: 12px;
+}
+
+/* Carousel: shows one image at a time; swipe or use the arrow buttons */
+.carousel {
+    position: relative;
+}
+
+.carousel-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;   /* lock scrolling to one image at a time */
+    scroll-behavior: smooth;
+}
+
+.carousel-track img {
+    flex: 0 0 100%;                  /* each image fills the carousel width */
+    scroll-snap-align: start;
+    width: 100%;
+    aspect-ratio: 16 / 9;            /* consistent, responsive height */
+    object-fit: cover;
+}
+
+/* Prev/next arrows overlaid on the sides. They sit on top of an arbitrary
+   photo, so they need a background of their own to stay legible. */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    font-size: 1.5rem;
+    line-height: 1;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+}
+
+.carousel-btn.prev { left: 8px; }
+.carousel-btn.next { right: 8px; }
+
+/* ---------- Connect: social + mailing list links ---------- */
+/* Row of links that wraps on narrow screens */
+.social-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* ---------- Desktop ---------- */
+@media (min-width: 700px) {
+    /* Drop the hamburger and lay the links back out as a horizontal row */
+    .nav-toggle > summary {
+        display: none;
+    }
+
+    .navigation-bar {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .navigation-bar a {
+        min-height: 0;
+        padding: 0;
+    }
+
+    /* Enough room for the month grid, so swap the agenda list out for it */
+    .calendar-agenda {
+        display: none;
+    }
+
+    .calendar-month {
+        display: block;
+        aspect-ratio: 4 / 3;
+        height: auto;
+    }
+}
