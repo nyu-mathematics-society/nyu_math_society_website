@@ -1,14 +1,27 @@
 [
     {
-        "title": "Integration Bee",
-        "date": "2026-04-15",
-        "description": "Our annual head-to-head integration contest. Twenty competitors, one whiteboard, and a final round that came down to a contour integral.",
-        "images": ["avatar.png", "avatar.png", "avatar.png"]
+        "title": "Academic Talk",
+        "date": "2025-10-25",
+        "description": "Chen Li, a PhD student at Courant, gave an incredibly interesting talk on the wide variety of math applications in the real world. These topics included: linear algebra for mapping connections in pre-revolutionary Boston, the uncertainty principle for understanding Earth’s layers, and how Radon’s transforms lead to the development of X-Ray technology!",
+        "images": ["2025-10-25-img1.jpeg", "2025-10-25-img2.jpeg"]
     },
     {
-        "title": "Grad School Panel",
-        "date": "2026-03-02",
-        "description": "Five PhD students from the Courant Institute answered questions about applications, funding, and what research actually looks like day to day.",
-        "images": ["avatar.png"]
+        "title": "Academic Talk",
+        "date": "2025-10-28",
+        "description": "Math Society had another successful academic talk with Professor Charles Stine on Morse Theory. He discussed the Hessian Matrix and how it’s used to study paths between points on high dimensional shapes. These ideas are often found in topology, optimization, and physics!",
+        "images": ["2025-10-28-img1.jpeg", "2025-10-28-img2.jpeg"]
+    },
+    {
+        "title": "Academic Talk",
+        "date": "2025-11-18",
+        "description": "Math Society was joined by Professor Lisa Marquand to discuss her research on cubic hypersurfaces and rationality. She discussed how in lower dimensions and degrees, these hypersurfaces are often birational and sometimes isomorphic. However, after reaching degree 3, the question becomes far more complex. Her research explores this question of rationality for these higher degree surfaces including symmetric cubic fourfolds!",
+        "images": ["2025-11-18-img1.jpeg", "2025-11-18-img2.jpeg", "2025-11-18-img3.jpeg"]
+    },
+    {
+        "title": "Integration Bee",
+        "date": "2025-12-10",
+        "description": "Math Society hosted its first ever Integration Bee! We started with a qualifying exam, then moved into intense single-elimination rounds. So many people came out to compete and cheer—it was an awesome way to end the semester!",
+        "images": ["2025-12-10-img1.jpeg", "2025-12-10-img2.jpeg"]
     }
+
 ]
