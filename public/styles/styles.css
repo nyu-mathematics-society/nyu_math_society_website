@@ -1,6 +1,31 @@
-/* Layout only — no cosmetic styling.
-   Written mobile-first: the rules below describe the phone layout, and the one
-   @media block at the bottom widens things out from 700px up. */
+/* Written mobile-first: the rules below describe the phone layout, and the one
+   @media block at the bottom widens things out from 700px up.
+
+   Contrast discipline on the dark background: --accent (pink) only colors
+   large text (24px+) on --bg / --bg-band; body-size pink text always uses the
+   lighter --accent-soft; --crimson never appears as text on the background,
+   only as a thin decorative rule. */
+
+:root {
+    /* color */
+    --bg:            #1e353d;   /* page background */
+    --bg-band:       #172830;   /* darker full-bleed header + footer bands */
+    --surface:       #27434d;   /* cards, pill buttons */
+    --surface-2:     #2e4d59;   /* hover elevation */
+    --border:        #3c5a66;   /* hairlines */
+    --text:          #e8eef2;
+    --muted:         #9fb4bc;
+    --accent:        #e16792;
+    --accent-soft:   #ec8fad;
+    --crimson:       #c92a2a;
+
+    /* type */
+    --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+    /* shape */
+    --radius: 12px;
+}
 
 * {
     box-sizing: border-box;
@@ -11,19 +36,37 @@ html {
     -webkit-text-size-adjust: 100%;
 }
 
+/* Flex column so the footer sits at the viewport bottom even on short pages */
 body {
     margin: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Centered content column. header and nav sit outside <main>, so they need the
-   same treatment to line up with it — and the padding is what keeps text off
-   the screen edge on a phone. */
-header,
-nav,
-main {
+/* Centered content column. The header/footer bands run full width, so only
+   their inner wrappers and <main> line up on the column — and the padding is
+   what keeps text off the screen edge on a phone. width: 100% is load-bearing:
+   the auto inline margins would otherwise stop the flex container stretching
+   these to full width. */
+.site-header-inner,
+main,
+.footer-inner {
+    width: 100%;
     max-width: 1000px;
     margin-inline: auto;
     padding-inline: 1rem;
+}
+
+/* Pushes the footer down; header and footer keep their natural height */
+main {
+    flex: 1 0 auto;
 }
 
 /* Nothing should ever be able to push the page wider than the screen */
@@ -31,7 +74,92 @@ img {
     max-width: 100%;
 }
 
-/* ---------- Navigation ---------- */
+a {
+    color: var(--accent-soft);
+}
+
+::selection {
+    background: var(--accent);
+    color: #14232a;
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent-soft);
+    outline-offset: 3px;
+}
+
+/* ---------- Typography ---------- */
+h1,
+h2,
+h3 {
+    font-family: var(--font-display);
+    line-height: 1.2;
+}
+
+h1 {
+    margin-block: 0.6em 0.4em;
+    font-size: clamp(1.9rem, 1.35rem + 2.2vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--accent);
+}
+
+/* Short crimson rule under the page title: its one flourish */
+h1::after {
+    content: "";
+    display: block;
+    width: 52px;
+    height: 3px;
+    margin-top: 14px;
+    border-radius: 2px;
+    background: var(--crimson);
+}
+
+h2 {
+    font-weight: 600;
+}
+
+/* Pink section heading: 1.5rem = 24px, the floor where pink-on-bg passes
+   large-text contrast */
+.section-title {
+    margin: 48px 0 20px;
+    font-size: 1.5rem;
+    color: var(--accent);
+}
+
+/* ---------- Header band + navigation ---------- */
+.site-header {
+    background: var(--bg-band);
+    border-bottom: 1px solid var(--border);
+}
+
+.site-header-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0 24px;
+    padding-block: 10px;
+}
+
+.brand {
+    padding-block: 8px;
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.brand:hover {
+    color: var(--accent-soft);
+}
+
+/* The menu drops onto its own full-width row under the brand on phones */
+nav {
+    flex: 1 1 100%;
+}
+
 /* A <details> disclosure: collapsed behind a ☰ button on phones, opened out
    into a plain row on desktop (see the media query). scripts/nav.js keeps the
    open state in sync with the same 700px breakpoint. */
@@ -41,6 +169,7 @@ img {
     padding: 12px 0;
     cursor: pointer;
     list-style: none;      /* hide the default disclosure triangle */
+    font-weight: 500;
 }
 
 .nav-toggle > summary::-webkit-details-marker {
@@ -60,10 +189,49 @@ img {
     flex-direction: column;
 }
 
+.navigation-bar li + li {
+    border-top: 1px solid var(--border);
+}
+
 .navigation-bar a {
     display: block;
     min-height: 44px;
     padding: 12px 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+}
+
+.navigation-bar a:hover {
+    color: var(--text);
+}
+
+/* Pink underline marks the page you're on. Longhands on purpose: old Safari
+   ignores the whole shorthand when it carries color/thickness. */
+.navigation-bar a[aria-current="page"] {
+    color: var(--text);
+    text-decoration-line: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+}
+
+/* ---------- Hero ---------- */
+/* No top padding: the h1's own margin sets the gap under the header band, the
+   same as on the pages whose <h1> sits straight in <main>. */
+.hero {
+    padding-block: 0 8px;
+}
+
+.hero p {
+    max-width: 65ch;
+    font-size: 1.0625rem;
+}
+
+.hero strong {
+    color: var(--accent-soft);
+    font-weight: 600;
 }
 
 /* ---------- Card grid ---------- */
@@ -75,6 +243,47 @@ img {
     gap: 20px;
 }
 
+.card {
+    padding: 22px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+/* Link cards (home page): the whole card is the anchor */
+a.card {
+    display: block;
+    color: var(--text);
+    text-decoration: none;
+    transition: transform 0.18s ease, background-color 0.18s ease,
+                border-color 0.18s ease;
+}
+
+/* Pink lacks contrast on --surface, so card headings stay light */
+a.card h2 {
+    margin: 0 0 6px;
+    font-size: 1.2rem;
+}
+
+a.card p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--muted);
+}
+
+a.card:hover,
+a.card:focus-visible {
+    transform: translateY(-3px);
+    background: var(--surface-2);
+    border-color: var(--accent);
+}
+
+/* Team cards (about page) */
+.team-grid .card {
+    padding: 28px 16px 22px;
+    text-align: center;
+}
+
 /* Team avatars: fixed square size, cropped to fit without distortion */
 .card img {
     width: 120px;
@@ -83,7 +292,37 @@ img {
     object-fit: cover;
 }
 
+.team-grid .card img {
+    border-radius: 50%;
+    border: 2px solid var(--border);
+}
+
+.team-grid h3 {
+    margin: 14px 0 2px;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.member-role {
+    margin: 0;
+    font-size: 0.8rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
 /* ---------- Calendar embed ---------- */
+/* The Google iframes are cross-origin and always render white, so give them a
+   deliberate white card frame instead of fighting it. */
+.calendar-frame {
+    max-width: 820px;
+    padding: 8px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
 /* Google's month grid has its own ~600px internal minimum and just clips below
    that, so phones get the agenda view (a scrollable list) instead. Only one of
    the two iframes is ever visible. */
@@ -91,6 +330,7 @@ img {
     display: block;
     width: 100%;
     max-width: 800px;
+    border-radius: 8px;
 }
 
 .calendar-agenda {
@@ -102,19 +342,45 @@ img {
 }
 
 /* ---------- Blog-style posts (past events) ---------- */
+/* These class names are generated by scripts/past-events.js — keep in sync */
 .post {
-    margin-bottom: 60px;
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+}
+
+.post:last-child {
+    border-bottom: 0;
+}
+
+/* 1.5rem = 24px: the pink large-text floor again */
+.post h2 {
+    margin-bottom: 4px;
+    font-size: 1.5rem;
+    color: var(--accent);
 }
 
 /* <time> is inline by default; give the date its own line above the photos */
 .post-date {
     display: block;
     margin-bottom: 12px;
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+}
+
+.post p {
+    max-width: 68ch;
 }
 
 /* Carousel: shows one image at a time; swipe or use the arrow buttons */
+/* The band colour is what shows beside a photo that doesn't fill the frame,
+   so the frame reads as a deliberate mat rather than a gap in the page. */
 .carousel {
     position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;   /* rounds the photos; the ±8px buttons stay inside */
+    background: var(--bg-band);
 }
 
 .carousel-track {
@@ -124,12 +390,19 @@ img {
     scroll-behavior: smooth;
 }
 
+/* Every slide gets the same frame so the carousel keeps one height as you
+   scroll, but `contain` fits each photo inside it whole — the event photos are
+   a mix of 4:3 and 3:4, and `cover` cut 58% off the portrait ones. The ratio is
+   driven by the frame's width rather than a fixed px/vh height: a fixed height
+   letterboxes landscape shots on a phone, and vh resizes the frame when mobile
+   browser chrome slides away. Square on phones, where a wide frame would leave
+   a portrait shot barely half the screen; 3:2 from 700px up. */
 .carousel-track img {
     flex: 0 0 100%;                  /* each image fills the carousel width */
     scroll-snap-align: start;
     width: 100%;
-    aspect-ratio: 16 / 9;            /* consistent, responsive height */
-    object-fit: cover;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
 }
 
 /* Prev/next arrows overlaid on the sides. They sit on top of an arbitrary
@@ -146,17 +419,23 @@ img {
     place-items: center;
     font-size: 1.5rem;
     line-height: 1;
-    border: 0;
+    border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(23, 40, 48, 0.8);
+    color: var(--text);
     cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.carousel-btn:hover {
+    background: var(--bg-band);
 }
 
 .carousel-btn.prev { left: 8px; }
 .carousel-btn.next { right: 8px; }
 
 /* ---------- Connect: social + mailing list links ---------- */
-/* Row of links that wraps on narrow screens */
+/* Row of pill buttons that wraps on narrow screens */
 .social-links {
     list-style: none;
     margin: 0;
@@ -166,8 +445,87 @@ img {
     gap: 20px;
 }
 
+.social-links a {
+    display: inline-block;
+    padding: 12px 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.social-links a:hover {
+    background: var(--surface-2);
+    border-color: var(--accent-soft);
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+    margin-top: 56px;
+    background: var(--bg-band);
+    border-top: 1px solid var(--border);
+}
+
+.footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 24px;
+    padding-block: 22px 26px;
+    font-size: 0.85rem;
+}
+
+.footer-copy {
+    margin: 0;
+    color: var(--muted);
+}
+
+.footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.footer-links a {
+    color: var(--muted);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.footer-links a:hover {
+    color: var(--accent-soft);
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+
+    .carousel-track {
+        scroll-behavior: auto;
+    }
+}
+
 /* ---------- Desktop ---------- */
 @media (min-width: 700px) {
+    .site-header-inner {
+        padding-block: 16px;
+    }
+
+    /* The menu joins the brand on one row */
+    nav {
+        flex: 0 1 auto;
+    }
+
     /* Drop the hamburger and lay the links back out as a horizontal row */
     .nav-toggle > summary {
         display: none;
@@ -176,12 +534,21 @@ img {
     .navigation-bar {
         flex-direction: row;
         flex-wrap: wrap;
-        gap: 20px;
+        gap: 26px;
+    }
+
+    .navigation-bar li + li {
+        border-top: 0;
     }
 
     .navigation-bar a {
         min-height: 0;
         padding: 0;
+    }
+
+    /* Wide enough for a landscape photo to nearly fill a 3:2 frame */
+    .carousel-track img {
+        aspect-ratio: 3 / 2;
     }
 
     /* Enough room for the month grid, so swap the agenda list out for it */

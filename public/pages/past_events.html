@@ -3,38 +3,43 @@
     <head>
         <meta charset="UTF-8">
         <title>Past Events</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+        <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231e353d'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='40' text-anchor='middle' fill='%23e16792'%3E%E2%88%91%3C/text%3E%3C/svg%3E">
         <link rel="stylesheet" href="../styles/styles.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
 
     <body>
 
-        <header>
-            Our Past Highlights!
+        <header class="site-header">
+            <div class="site-header-inner">
+                <a class="brand" href="../index.html">NYU Math Society</a>
+                <nav>
+                    <details class="nav-toggle">
+                        <summary>Menu</summary>
+                        <ul class="navigation-bar">
+                            <li>
+                                <a href="../index.html">Home</a>
+                            </li>
+                            <li>
+                                <a href="about.html">About Us</a>
+                            </li>
+                            <li>
+                                <a href="upcoming_events.html">Upcoming Events</a>
+                            </li>
+                            <li>
+                                <a href="past_events.html" aria-current="page">Past Events</a>
+                            </li>
+                            <li>
+                                <a href="contacts.html">Get in Touch</a>
+                            </li>
+                        </ul>
+                    </details>
+                </nav>
+            </div>
         </header>
-
-        <nav>
-            <details class="nav-toggle">
-                <summary>Menu</summary>
-                <ul class="navigation-bar">
-                    <li>
-                        <a href="../index.html">Home</a>
-                    </li>
-                    <li>
-                        <a href="about.html">About Us</a>
-                    </li>
-                    <li>
-                        <a href="upcoming_events.html">Upcoming Events</a>
-                    </li>
-                    <li>
-                        <a href="past_events.html">Past Events</a>
-                    </li>
-                    <li>
-                        <a href="contacts.html">Get in Touch</a>
-                    </li>
-                </ul>
-            </details>
-        </nav>
         <script src="../scripts/nav.js"></script>
 
         <main>
@@ -43,6 +48,17 @@
             <!-- Posts are rendered from data/events.json. Add events there, not here. -->
             <div id="events"></div>
         </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <p class="footer-copy">&copy; 2026 NYU Mathematics Society</p>
+                <ul class="footer-links">
+                    <li><a href="https://www.instagram.com/nyumath/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener">Instagram</a></li>
+                    <li><a href="https://www.linkedin.com/company/nyu-math-society/posts/?feedView=all" target="_blank" rel="noopener">LinkedIn</a></li>
+                    <li><a href="https://engage.nyu.edu/organization/nyu-mathematics-society">NYU Engage</a></li>
+                </ul>
+            </div>
+        </footer>
 
         <script src="../scripts/past-events.js"></script>
 
