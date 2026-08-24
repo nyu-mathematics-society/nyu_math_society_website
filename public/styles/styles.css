@@ -278,6 +278,74 @@ a.card:focus-visible {
     border-color: var(--accent);
 }
 
+/* ---------- Next event highlight ---------- */
+/* A .card that isn't a link, so the accent border it borrows from a.card:hover
+   can't be mistaken for a hover state. That border is the whole trick: it lifts
+   the card out of the grid below without changing its surface colour.
+   Hidden until scripts/next-event.js finds an event to put in it. */
+.next-event {
+    margin-bottom: 20px;
+    border-color: var(--accent);
+}
+
+.next-event .eyebrow {
+    margin-bottom: 6px;
+}
+
+/* Light, not pink: 1.25rem is under the 24px pink floor, and pink lacks
+   contrast on --surface anyway — the same reason a.card h2 stays light */
+.next-event h2 {
+    margin: 0 0 8px;
+    font-size: 1.25rem;
+}
+
+/* Reset the <p>'s default top margin; .post-date sets the 12px below it */
+.next-event-meta {
+    margin-top: 0;
+}
+
+.next-event-desc {
+    margin: 0;
+    max-width: 65ch;
+}
+
+/* Belt and braces: nothing sets `display` on the card, so [hidden] already
+   works, but this keeps it working if a layout rule ever lands on it */
+[hidden] {
+    display: none;
+}
+
+/* ---------- Call-to-action button ---------- */
+/* The .social-links pill, filled in so it reads as the page's one primary
+   action. Dark text on pink inverts the usual pairing and is the only place
+   --accent carries body-size text: it measures 5.0:1, clearing AA, and it's
+   the pairing ::selection already uses. Padding puts it ~49px tall, over the
+   44px tap target the nav and carousel buttons keep. */
+/* Sits closer to the card above than to the grid below, so the highlight and
+   its call to action read as one block */
+.cta-row {
+    margin: 0 0 36px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    color: #14232a;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.cta-button:hover,
+.cta-button:focus-visible {
+    background: var(--accent-soft);
+    border-color: var(--accent-soft);
+}
+
 /* Team cards (about page) */
 .team-grid .card {
     padding: 28px 16px 22px;
@@ -303,7 +371,9 @@ a.card:focus-visible {
     font-weight: 600;
 }
 
-.member-role {
+/* Small uppercase label: a team member's role, or the "Next event" kicker */
+.member-role,
+.eyebrow {
     margin: 0;
     font-size: 0.8rem;
     letter-spacing: 0.07em;
@@ -360,8 +430,11 @@ a.card:focus-visible {
     color: var(--accent);
 }
 
-/* <time> is inline by default; give the date its own line above the photos */
-.post-date {
+/* The muted line under a heading: a post's date above its photos, or the
+   date · time · room of the next event. Both are inline content by default,
+   so the block display is what gives them a line of their own. */
+.post-date,
+.next-event-meta {
     display: block;
     margin-bottom: 12px;
     font-size: 0.9rem;

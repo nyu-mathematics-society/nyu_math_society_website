@@ -49,6 +49,15 @@
                 <p><strong>We’re crazy about math!</strong> We strive to learn more about the subject and its applications outside of the classroom through social events as well as lectures and sharing of research, often by NYU Courant’s own established professors. We’re not strictly an academic club so math majors and non-majors alike are all welcome. Drop in to chill, mingle and make friends, all in the spirit of learning!</p>
             </section>
 
+            <!-- Next event: filled in by scripts/next-event.js from data/upcoming.json.
+                 Stays hidden when there's nothing coming up. -->
+            <section id="next-event" class="card next-event" hidden></section>
+
+            <!-- The one primary action on the page -->
+            <p class="cta-row">
+                <a class="cta-button" href="https://engage.nyu.edu/organization/nyu-mathematics-society">Join our mailing list</a>
+            </p>
+
             <!-- Card grid: each card teases a section and links to its page -->
             <section class="card-grid">
                 <a class="card" href="pages/about.html">
@@ -65,7 +74,7 @@
                 </a>
                 <a class="card" href="pages/contacts.html">
                     <h2>Get in Touch</h2>
-                    <p>Join our mailing list and follow along.</p>
+                    <p>Socials, mailing list, and how to reach us.</p>
                 </a>
             </section>
         </main>
@@ -80,6 +89,8 @@
                 </ul>
             </div>
         </footer>
+
+        <script src="scripts/next-event.js"></script>
 
     </body>
 </html>
