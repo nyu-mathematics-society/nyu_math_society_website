@@ -234,6 +234,16 @@ nav {
     font-weight: 600;
 }
 
+/* ---------- Inclusion statement ---------- */
+/* Body prose sharing the hero's measure and size, so wherever it lands it
+   keeps the same left-to-right rhythm as the page's other paragraphs rather
+   than reading as a caption. The pink .section-title above it is all the
+   separation it needs. */
+.welcome p {
+    max-width: 65ch;
+    font-size: 1.0625rem;
+}
+
 /* ---------- Card grid ---------- */
 /* As many columns as fit, auto-stacks to one column on phones. The min() keeps
    a 220px column from overflowing a container narrower than 220px. */
