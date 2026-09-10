@@ -25,6 +25,9 @@
 
     /* shape */
     --radius: 12px;
+
+    /* space */
+    --title-gap: 1rem;   /* under every page title, on every page */
 }
 
 * {
@@ -97,11 +100,25 @@ h3 {
 }
 
 h1 {
-    margin-block: 0.6em 0.4em;
+    margin-block: 0.6em var(--title-gap);
     font-size: clamp(1.9rem, 1.35rem + 2.2vw, 2.5rem);
     font-weight: 700;
     letter-spacing: -0.015em;
     color: var(--accent);
+}
+
+/* The page title owns the space beneath it, and --title-gap is the whole of
+   it. Whatever a page opens with — prose, a section heading, an embed, the
+   posts the scripts render — starts flush against that gap instead of
+   collapsing a margin of its own into it. Without this the opening gap is
+   whichever margin wins the collapse, so it drifts with the font size of the
+   first thing on the page: it was 17px on the hero pages, 20px on past events
+   and 48px on contacts, where a .section-title led. The descendant half of the
+   selector reaches a heading wrapped in a <section> or built by a script,
+   which is why this is not written against each page's markup. */
+h1 + *,
+h1 + * :first-child {
+    margin-block-start: 0;
 }
 
 /* Short crimson rule under the page title: its one flourish */
