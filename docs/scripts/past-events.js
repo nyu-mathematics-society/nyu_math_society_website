@@ -109,6 +109,8 @@ function formatDate(iso) {
 /* Carousel arrows: scroll the track one image per click.
    Swiping / trackpad scroll works without this, so it's just an enhancement. */
 function wireCarousels() {
+    var refreshers = [];
+
     document.querySelectorAll('.carousel').forEach(function (carousel) {
         var track = carousel.querySelector('.carousel-track');
         var prev = carousel.querySelector('.prev');
@@ -123,6 +125,33 @@ function wireCarousels() {
         });
         next.addEventListener('click', function () {
             track.scrollBy({ left: track.clientWidth, behavior: 'smooth' });
+        });
+
+        // Dim the arrow that has nothing left to scroll to, so the ends of the
+        // strip show rather than taking a dead click to find. A scroll can stop
+        // a fraction of a pixel short of either end, so allow 1px of slack
+        // instead of testing for an exact 0 / maximum.
+        function refreshArrows() {
+            var furthest = track.scrollWidth - track.clientWidth;
+            prev.disabled = track.scrollLeft <= 1;
+            next.disabled = track.scrollLeft >= furthest - 1;
+        }
+
+        // A smooth scroll fires `scroll` repeatedly, so this runs often. It
+        // only reads three numbers and sets two flags — nothing that would
+        // make the browser redo layout mid-scroll — so it needs no throttle.
+        track.addEventListener('scroll', refreshArrows);
+
+        // Slides are sized from the frame, not the photos, so the ends are
+        // known before the lazy images arrive.
+        refreshArrows();
+        refreshers.push(refreshArrows);
+    });
+
+    // A new frame width moves where the last slide ends.
+    window.addEventListener('resize', function () {
+        refreshers.forEach(function (refresh) {
+            refresh();
         });
     });
 }

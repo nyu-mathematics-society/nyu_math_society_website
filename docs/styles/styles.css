@@ -534,6 +534,12 @@ a.card:focus-visible {
     overflow-x: auto;
     scroll-snap-type: x mandatory;   /* lock scrolling to one image at a time */
     scroll-behavior: smooth;
+    /* The track holds exactly one frame per photo, so there is nothing to see
+       before the first or after the last. Without this, a trackpad swipe still
+       rubber-bands past them — dragging the photo off the edge to show the band
+       behind it — and then hands the leftover swipe to the page, where a
+       horizontal flick triggers the browser's back gesture. */
+    overscroll-behavior-x: none;
 }
 
 /* Every slide gets the same frame so the carousel keeps one height as you
@@ -570,11 +576,22 @@ a.card:focus-visible {
     background: rgba(23, 40, 48, 0.8);
     color: var(--text);
     cursor: pointer;
-    transition: background-color 0.15s ease;
+    transition: background-color 0.15s ease, opacity 0.15s ease;
 }
 
-.carousel-btn:hover {
+/* Hover belongs to an arrow that can still do something; a dimmed one that
+   lights up under the pointer would read as clickable. */
+.carousel-btn:not(:disabled):hover {
     background: var(--bg-band);
+}
+
+/* At the first or last photo there is nothing to scroll to, so the arrow dims
+   instead of sitting there looking live. It stays in place rather than
+   disappearing — an arrow that vanishes shifts the other one's apparent pair
+   and makes the frame flicker on every swipe. */
+.carousel-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
 }
 
 .carousel-btn.prev { left: 8px; }
