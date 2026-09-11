@@ -373,29 +373,75 @@ a.card:focus-visible {
     border-color: var(--accent-soft);
 }
 
-/* Team cards (about page) */
+/* ---------- Team cards (about page) ---------- */
+/* The photo runs edge to edge across the top of the card, so the card drops
+   its padding (.member-info carries it instead) and clips the photo to its
+   own rounded corners. */
 .team-grid .card {
-    padding: 28px 16px 22px;
-    text-align: center;
+    padding: 0;
+    overflow: hidden;
 }
 
-/* Team avatars: fixed square size, cropped to fit without distortion */
-.card img {
-    width: 120px;
-    height: 120px;
-    max-width: 100%;
+/* 4:5 is the headshots' own portrait shape, so `cover` trims only a sliver
+   off the taller ones — and faces sit in the upper half of every photo, so
+   the 30% anchor keeps them in frame when it does. The band colour shows
+   while a lazy-loaded photo is still on its way. */
+.member-photo {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
     object-fit: cover;
+    object-position: 50% 30%;
+    background: var(--bg-band);
 }
 
-.team-grid .card img {
-    border-radius: 50%;
-    border: 2px solid var(--border);
+/* Name and role stacked on the left, the LinkedIn button beside them. The
+   button pins to the top instead of centring on the text: centred, it slid
+   down in any card whose name or role wraps to a second line, so the buttons
+   along a row stopped lining up. */
+.member-info {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    column-gap: 8px;
+    padding: 14px 10px 16px 18px;
 }
 
 .team-grid h3 {
-    margin: 14px 0 2px;
+    margin: 0 0 2px;
     font-size: 1.05rem;
     font-weight: 600;
+}
+
+/* LinkedIn's own white [in] logo, used exactly as supplied: their brand rules
+   allow only their files, in blue, black or white, never recoloured. So the
+   hover lights up the circle around the logo — the .social-links pill's pink
+   border and --surface-2 fill — and leaves the logo alone. The link is the
+   full 44px tap target the nav and carousel keep. */
+.member-linkedin {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+/* 22px clears LinkedIn's 21px minimum. The square is the file's full height;
+   the ® beside it is what makes the file wider than it is tall. */
+.member-linkedin img {
+    width: auto;
+    height: 22px;
+}
+
+.member-linkedin:hover,
+.member-linkedin:focus-visible {
+    background: var(--surface-2);
+    border-color: var(--accent-soft);
 }
 
 /* Small uppercase label: a team member's role, or the "Next event" kicker */
