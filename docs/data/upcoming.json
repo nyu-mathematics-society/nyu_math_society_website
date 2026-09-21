@@ -1,17 +1,10 @@
 [
     {
-        "title": "Fall 2026 Kickoff",
-        "date": "2026-09-18",
-        "time": "5:30 PM - 7 PM",
-        "room": "WWH room 1302",
-        "description": "Join us for the Kickoff! During the event you can learn about Clubs plans for the semester, meet your fellow Math Society members and eat some delicious food!"
-    },
-    {
         "title": "Fireside Chat with Prof. Nikola Kovachki",
         "date": "2026-09-25",
-        "time": "TBD",
+        "time": "5:30pm - 7pm",
         "room": "WWH room 1302",
-        "description": "Join us for a preprofessional talk with Dr. Kovachki!"
+        "description": "Join us for a chat with Dr. Kovachki regarding his research in Nvidia and academia!"
     }
 ]
 
